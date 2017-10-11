@@ -5,27 +5,24 @@ using UnityEngine;
 public class platformBehavior : MonoBehaviour {
 
 	public bool isOnCrane;
-	public bool isFalling;
 	public bool isSettled;
 
 	// Use this for initialization
 	void Start ()
 	{
 		isOnCrane = true;
-		isFalling = false;
 		isSettled = false;
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-		if(Input.GetKeyDown(KeyCode.Space) && !isFalling && !isSettled)
+		if(Input.GetKeyDown(KeyCode.Space) && isOnCrane)
 		{
 			isOnCrane = false;
-			isFalling = true;
 		}
 
-		if(isFalling)
+		if(!isOnCrane && !isSettled)
 		{
 			transform.Translate(0.0f, -0.1f, 0.0f);
 		}
@@ -33,10 +30,10 @@ public class platformBehavior : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D col)
 	{
-		isFalling = false;
-		isSettled = true;
-
-		//GameObject newBlock = Instantiate(gameObject);
-		//newBlock.transform.position.Set(0.0f, 2.96f, 0.0f);
+		if(!isSettled && !isOnCrane)
+		{
+			Instantiate(gameObject, new Vector3(0.0f, 2.96f, 0.0f), Quaternion.identity);
+			isSettled = true;
+		}
 	}
 }
