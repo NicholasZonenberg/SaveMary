@@ -26,6 +26,10 @@ public class platformBehavior : MonoBehaviour {
 		{
 			transform.Translate(0.0f, -0.1f, 0.0f);
 		}
+        if(isSettled)
+        {
+            
+        }
 	}
 
 	void OnCollisionEnter2D(Collision2D col)
@@ -34,6 +38,7 @@ public class platformBehavior : MonoBehaviour {
 		{
 			Instantiate(gameObject, new Vector3(0.0f, 2.96f, 0.0f), Quaternion.identity);
 			isSettled = true;
-		}
+            gameObject.tag = "resting";
+        }
 	}
 }
