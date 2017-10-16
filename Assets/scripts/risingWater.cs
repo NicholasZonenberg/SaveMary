@@ -14,6 +14,9 @@ public class risingWater : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		transform.Translate(new Vector3(0.0f, 0.1f) * Time.deltaTime);
+		if(transform.position.y < -1.75)
+		{
+			transform.Translate(new Vector3(0.0f, 0.1f) * Time.deltaTime);
+		}
 	}
 }
