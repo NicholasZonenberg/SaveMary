@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class craneScript : MonoBehaviour {
 
+	public float speed = 0.1f;
+
 	// Use this for initialization
-	void Start () {
+	void Start ()
+	{
 		
 	}
 
@@ -14,11 +17,11 @@ public class craneScript : MonoBehaviour {
     {
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            this.transform.Translate(-0.1f, 0.0f, 0.0f);
+            this.transform.Translate(-speed, 0.0f, 0.0f);
         }
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            this.transform.Translate(0.1f, 0.0f, 0.0f);
+            this.transform.Translate(speed, 0.0f, 0.0f);
         }
     }
 }

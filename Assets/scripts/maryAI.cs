@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class maryAI : MonoBehaviour {
 
-    public bool isAlive;
+	public bool isAlive = true;
 
     // Use this for initialization
-    void Start () {
-        isAlive = true;
+    void Start ()
+	{
+
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+	{
 		
 	}
 

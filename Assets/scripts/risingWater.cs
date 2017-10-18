@@ -5,18 +5,22 @@ using UnityEngine;
 public class risingWater : MonoBehaviour
 {
 
+	public float initialY = -10.0f;
+	public float speed = 0.1f;
+	public float stopHeight = -1.75f;
+
 	// Use this for initialization
 	void Start ()
 	{
-		transform.position.Set(0.0f, -10.0f, 0.0f);
+		transform.position.Set(0.0f, initialY, 0.0f);
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-		if(transform.position.y < -1.75)
+		if(transform.position.y < stopHeight)
 		{
-			transform.Translate(new Vector3(0.0f, 0.1f) * Time.deltaTime);
+			transform.Translate(new Vector3(0.0f, speed) * Time.deltaTime);
 		}
 	}
 }

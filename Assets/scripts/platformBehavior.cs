@@ -2,18 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class platformBehavior : MonoBehaviour {
+public class platformBehavior : MonoBehaviour
+{
+	public float fallSpeed = 0.1f;
+	public float craneY = 3.66f;
 
-	public bool isOnCrane;
-	public bool isSettled;
-
-	Transform cranePos;
+	private float height;
+	private bool isOnCrane;
+	private bool isSettled;
+	private Transform cranePos;
 
 	// Use this for initialization
 	void Start ()
 	{
 		isOnCrane = true;
 		isSettled = false;
+
+		height = GetComponent<Transform>().lossyScale.y;
 
 		cranePos = GameObject.Find("crane").GetComponent<Transform>();
 	}
@@ -23,7 +28,7 @@ public class platformBehavior : MonoBehaviour {
 	{
 		if(isOnCrane)
 		{
-			Vector3 newPosition = new Vector3(cranePos.position.x, transform.position.y, 2.0f);
+			Vector3 newPosition = new Vector3(cranePos.position.x, craneY - (height / 2.0f), 2.0f);
 			transform.position = newPosition;
 
 			if(Input.GetKeyDown(KeyCode.Space))
@@ -34,7 +39,7 @@ public class platformBehavior : MonoBehaviour {
 
 		if(!isOnCrane && !isSettled)
 		{
-			transform.Translate(0.0f, -0.1f, 0.0f);
+			transform.Translate(0.0f, -fallSpeed, 0.0f);
 		}
         if(isSettled)
         {
@@ -46,7 +51,7 @@ public class platformBehavior : MonoBehaviour {
 	{
 		if(!isSettled && !isOnCrane)
 		{
-			Instantiate(gameObject, new Vector3(0.0f, 3.41f, 0.0f), Quaternion.identity);
+			Instantiate(gameObject, new Vector3(0.0f, craneY - (height / 2.0f), 0.0f), Quaternion.identity);
 			isSettled = true;
             gameObject.tag = "resting";
         }
