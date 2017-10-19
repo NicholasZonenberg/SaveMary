@@ -16,7 +16,7 @@ public class maryRunning : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		blockHeight = GameObject.Find("platform").transform.lossyScale.y;
+		blockHeight = GameObject.Find("platform").transform.localScale.y;
 	}
 	
 	// Update is called once per frame
@@ -44,8 +44,8 @@ public class maryRunning : MonoBehaviour
     {
         if (coll.gameObject.tag == "resting")
         {
-			height += coll.gameObject.transform.localScale.y;
-            transform.Translate(0, height, 0);
+			height = coll.gameObject.transform.localScale.y;
+            transform.Translate(0, blockHeight, 0);
             center = coll.gameObject.transform.position.x;
             width = coll.gameObject.transform.localScale.x;
         }
