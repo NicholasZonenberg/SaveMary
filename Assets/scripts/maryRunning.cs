@@ -11,12 +11,15 @@ public class maryRunning : MonoBehaviour
     public float height = 0.05f;
 	public float speed = 0.1f;
     public bool isAlive = true;
+
     private float blockHeight;
+	private Collider2D maryCollider;
 
 	// Use this for initialization
 	void Start () 
 	{
 		blockHeight = GameObject.Find("platform").transform.localScale.y;
+		maryCollider = GetComponent<BoxCollider2D>();
 	}
 	
 	// Update is called once per frame
@@ -59,4 +62,15 @@ public class maryRunning : MonoBehaviour
 			transform.Rotate(0.0f, 180.0f, 0.0f);
 		}*/
     }
+
+	void OnTriggerStay2D(Collider2D other)
+	{
+		if(other.gameObject.tag == "water")
+		{
+			if(other.bounds.center.y + other.bounds.extents.y > maryCollider.bounds.center.y + maryCollider.bounds.extents.y)
+			{
+				isAlive = false;
+			}
+		}
+	}
 }
