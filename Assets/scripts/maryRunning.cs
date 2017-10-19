@@ -8,10 +8,10 @@ public class maryRunning : MonoBehaviour
     public bool onFloor = true;
     public float width = 8.0f;
     public float center = 0.0f;
-    public float height = 0.075f;
+    public float height = 0.05f;
 	public float speed = 0.1f;
-
-	private float blockHeight;
+    public bool isAlive = true;
+    private float blockHeight;
 
 	// Use this for initialization
 	void Start () 
@@ -24,6 +24,10 @@ public class maryRunning : MonoBehaviour
 	{
 		// move to the right
 		transform.Translate (speed, 0, 0);
+        if (!isAlive)
+        {
+            speed = 0;
+        }
 
         if (transform.position.x >= center + width / 2)
         {
@@ -40,13 +44,17 @@ public class maryRunning : MonoBehaviour
     {
         if (coll.gameObject.tag == "resting")
         {
-			height += blockHeight;
+			height += coll.gameObject.transform.localScale.y;
             transform.Translate(0, height, 0);
             center = coll.gameObject.transform.position.x;
             width = coll.gameObject.transform.localScale.x;
         }
+        if (coll.gameObject.tag == "falling")
+        {
+            isAlive = false;
+        }
 
-		/*else if (coll.gameObject.tag == "wall")
+        /*else if (coll.gameObject.tag == "wall")
 		{
 			transform.Rotate(0.0f, 180.0f, 0.0f);
 		}*/
