@@ -14,12 +14,16 @@ public class maryRunning : MonoBehaviour
 
     private float blockHeight;
 	private Collider2D maryCollider;
+	private Rigidbody2D maryRigidbody;
+	private bool isJumping;
 
 	// Use this for initialization
 	void Start () 
 	{
 		blockHeight = GameObject.Find("platform").transform.localScale.y;
 		maryCollider = GetComponent<BoxCollider2D>();
+		maryRigidbody = GetComponent<Rigidbody2D>();
+		isJumping = false;
 	}
 	
 	// Update is called once per frame
@@ -32,12 +36,19 @@ public class maryRunning : MonoBehaviour
             speed = 0;
         }
 
-        if (transform.position.x >= center + width / 2)
+		if(Input.GetKeyDown(KeyCode.Z) && !isJumping && isAlive)
+		{
+			isJumping = true;
+			maryRigidbody.constraints = RigidbodyConstraints2D.FreezeAll ^ RigidbodyConstraints2D.FreezePositionY;	// Unfreeze Y
+			maryRigidbody.AddForce(new Vector2(0.0f, 200.0f));
+		}
+
+        if (transform.position.x >= center + width / 2 && !isJumping)
         {
             transform.rotation = Quaternion.Euler(0, 180, 0);
         }
         
-        if (transform.position.x <= center - width / 2)
+        if (transform.position.x <= center - width / 2 && !isJumping)
         {
             transform.rotation = Quaternion.Euler(0, 0, 0);
         }
@@ -48,7 +59,7 @@ public class maryRunning : MonoBehaviour
         if (coll.gameObject.tag == "resting")
         {
 			height = coll.gameObject.transform.localScale.y;
-            transform.Translate(0, blockHeight, 0);
+			transform.position.Set(0.0f, height, 0.0f);
             center = coll.gameObject.transform.position.x;
             width = coll.gameObject.transform.localScale.x;
         }
@@ -56,6 +67,9 @@ public class maryRunning : MonoBehaviour
         {
             isAlive = false;
         }
+
+		isJumping = false;
+		maryRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
 
         /*else if (coll.gameObject.tag == "wall")
 		{
