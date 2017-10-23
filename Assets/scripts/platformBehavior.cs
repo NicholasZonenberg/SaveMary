@@ -49,7 +49,7 @@ public class platformBehavior : MonoBehaviour
 
 	void OnCollisionEnter2D(Collision2D col)
 	{
-		if(!isSettled && !isOnCrane && col.gameObject.tag=="resting")
+		if(!isSettled && !isOnCrane && (col.gameObject.tag=="resting" || col.gameObject.tag == "ground"))
 		{
 			Instantiate(gameObject, new Vector3(0.0f, craneY - (height / 2.0f), 0.0f), Quaternion.identity);
 			isSettled = true;
