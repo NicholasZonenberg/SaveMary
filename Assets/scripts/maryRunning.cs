@@ -63,7 +63,13 @@ public class maryRunning : MonoBehaviour
             center = coll.gameObject.transform.position.x;
             width = coll.gameObject.transform.localScale.x;
         }
-        if (coll.gameObject.tag == "falling")
+		else if (coll.gameObject.tag == "ground")
+		{
+			height = 0.05f;
+			center = 0.0f;
+			width = 8.0f;
+		}
+        else if (coll.gameObject.tag == "falling")
         {
             isAlive = false;
         }
