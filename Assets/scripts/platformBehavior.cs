@@ -11,6 +11,7 @@ public class platformBehavior : MonoBehaviour
 	private bool isOnCrane;
 	private bool isSettled;
 	private Transform cranePos;
+	private List<GameObject> platformList;
 
     // Use this for initialization
     void Start ()
@@ -21,6 +22,8 @@ public class platformBehavior : MonoBehaviour
 		height = GetComponent<Transform>().lossyScale.y;
 
 		cranePos = GameObject.Find("crane").GetComponent<Transform>();
+
+		platformList = GameObject.Find("Mary").GetComponent<maryRunning>().platformList;
 	}
 	
 	// Update is called once per frame
@@ -34,6 +37,7 @@ public class platformBehavior : MonoBehaviour
 			if(Input.GetKeyDown(KeyCode.Space))
 			{
 				isOnCrane = false;
+				tag = "falling";
 			}
 		}
 
@@ -49,11 +53,14 @@ public class platformBehavior : MonoBehaviour
 
 	void OnCollisionEnter2D(Collision2D col)
 	{
-		if(!isSettled && !isOnCrane && (col.gameObject.tag=="resting" || col.gameObject.tag == "ground"))
+		if(!isSettled && !isOnCrane && (col.gameObject.tag == "resting" || col.gameObject.tag == "ground"))
 		{
-			Instantiate(gameObject, new Vector3(0.0f, craneY - (height / 2.0f), 0.0f), Quaternion.identity);
+			GameObject clone = Instantiate(gameObject, new Vector3(0.0f, craneY - (height / 2.0f), 0.0f), Quaternion.identity, GameObject.Find("PlatformList").transform);
+			clone.name = "platform";
+			clone.tag = "onCrane";
 			isSettled = true;
             gameObject.tag = "resting";
+			platformList.Add(gameObject);
         }
     }
 }

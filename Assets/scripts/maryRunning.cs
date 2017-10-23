@@ -10,7 +10,9 @@ public class maryRunning : MonoBehaviour
     public float center = 0.0f;
     public float height = 0.05f;
 	public float speed = 0.1f;
+	public float jumpDistance = 0.5f;
     public bool isAlive = true;
+	public List<GameObject> platformList = new List<GameObject>();
 
     private float blockHeight;
 	private Collider2D maryCollider;
@@ -29,6 +31,21 @@ public class maryRunning : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
+		if(!isJumping && isAlive)
+		{
+			// Check to see if any of the platforms on the list are in jumping distance
+			for(int i = platformList.Count - 1; i >= 0; i--)
+			{
+				// Mary is within jumping distance of this block, and it's on her level! Jump!
+				if(Mathf.Abs(platformList[i].GetComponent<Collider2D>().bounds.center.x - maryCollider.bounds.center.x) <= jumpDistance)
+				{
+					isJumping = true;
+					maryRigidbody.constraints = RigidbodyConstraints2D.FreezeAll ^ RigidbodyConstraints2D.FreezePositionY;	// Unfreeze Y
+					maryRigidbody.AddForce(new Vector2(0.0f, 200.0f));
+				}
+			}
+		}
+
 		// move to the right
 		transform.Translate (speed, 0, 0);
         if (!isAlive)
@@ -36,12 +53,13 @@ public class maryRunning : MonoBehaviour
             speed = 0;
         }
 
-		if(Input.GetKeyDown(KeyCode.Z) && !isJumping && isAlive)
+		// Manual Jump
+		/*if(Input.GetKeyDown(KeyCode.Z) && !isJumping && isAlive)
 		{
 			isJumping = true;
 			maryRigidbody.constraints = RigidbodyConstraints2D.FreezeAll ^ RigidbodyConstraints2D.FreezePositionY;	// Unfreeze Y
 			maryRigidbody.AddForce(new Vector2(0.0f, 200.0f));
-		}
+		}*/
 
         if (transform.position.x >= center + width / 2 && !isJumping)
         {
