@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class risingWater : MonoBehaviour
 {
+    private AudioSource source;
+    public AudioClip platformDrop;
 
-	public float initialY = -10.0f;
+    public float initialY = -10.0f;
 	public float speed = 0.1f;
 	public float stopHeight = -1.75f;
 
@@ -13,10 +15,13 @@ public class risingWater : MonoBehaviour
 	void Start ()
 	{
 		transform.position.Set(0.0f, initialY, 0.0f);
-	}
-	
-	// Update is called once per frame
-	void Update ()
+
+        source = GetComponent<AudioSource>();
+
+    }
+
+    // Update is called once per frame
+    void Update ()
 	{
 		if(transform.position.y < stopHeight)
 		{
