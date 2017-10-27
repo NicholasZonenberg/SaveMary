@@ -5,6 +5,7 @@ using UnityEngine;
 public class craneScript : MonoBehaviour {
 
 	public float speed = 0.1f;
+	public float limit = 4.0f;
 
 	// Use this for initialization
 	void Start ()
@@ -18,10 +19,18 @@ public class craneScript : MonoBehaviour {
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             this.transform.Translate(-speed, 0.0f, 0.0f);
+			if(transform.position.x < -limit)
+			{
+				transform.Translate(speed, 0.0f, 0.0f);
+			}
         }
         if (Input.GetKey(KeyCode.RightArrow))
         {
             this.transform.Translate(speed, 0.0f, 0.0f);
+			if(transform.position.x > limit)
+			{
+				transform.Translate(-speed, 0.0f, 0.0f);
+			}
         }
     }
 }

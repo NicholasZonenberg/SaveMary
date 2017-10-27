@@ -31,7 +31,7 @@ public class maryRunning : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		if(!isJumping && isAlive)
+		/*if(!isJumping && isAlive)
 		{
 			// Check to see if any of the platforms on the list are in jumping distance
 			for(int i = platformList.Count - 1; i >= 0; i--)
@@ -44,7 +44,7 @@ public class maryRunning : MonoBehaviour
 					maryRigidbody.AddForce(new Vector2(0.0f, 200.0f));
 				}
 			}
-		}
+		}*/
 
 		// move to the right
 		transform.Translate (speed, 0, 0);
@@ -54,12 +54,12 @@ public class maryRunning : MonoBehaviour
         }
 
 		// Manual Jump
-		/*if(Input.GetKeyDown(KeyCode.Z) && !isJumping && isAlive)
+		if(Input.GetKeyDown(KeyCode.UpArrow) && !isJumping && isAlive)
 		{
 			isJumping = true;
 			maryRigidbody.constraints = RigidbodyConstraints2D.FreezeAll ^ RigidbodyConstraints2D.FreezePositionY;	// Unfreeze Y
 			maryRigidbody.AddForce(new Vector2(0.0f, 200.0f));
-		}*/
+		}
 
         if (transform.position.x >= center + width / 2 && !isJumping)
         {
@@ -77,7 +77,8 @@ public class maryRunning : MonoBehaviour
         if (coll.gameObject.tag == "resting")
         {
 			height = coll.gameObject.transform.localScale.y;
-			transform.position.Set(0.0f, height, 0.0f);
+			//transform.position.Set(0.0f, height, 0.0f);
+			transform.Translate(0, blockHeight, 0);
             center = coll.gameObject.transform.position.x;
             width = coll.gameObject.transform.localScale.x;
         }
