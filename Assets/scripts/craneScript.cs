@@ -14,6 +14,8 @@ public class craneScript : MonoBehaviour {
 	void Start ()
 	{
 		source = GetComponent<AudioSource>();
+
+		enabled = false;
 	}
 
     // Update is called once per frame

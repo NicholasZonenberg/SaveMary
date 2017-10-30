@@ -34,7 +34,7 @@ public class platformBehavior : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		if(isOnCrane)
+		if(tag == "onCrane")
 		{
 			Vector3 newPosition = new Vector3(cranePos.position.x, craneY - (height / 2.0f), 2.0f);
 			transform.position = newPosition;

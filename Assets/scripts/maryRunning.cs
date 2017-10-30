@@ -26,6 +26,8 @@ public class maryRunning : MonoBehaviour
 		maryCollider = GetComponent<BoxCollider2D>();
 		maryRigidbody = GetComponent<Rigidbody2D>();
 		isJumping = false;
+
+		enabled = false;
 	}
 	
 	// Update is called once per frame

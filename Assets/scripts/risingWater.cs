@@ -18,6 +18,8 @@ public class risingWater : MonoBehaviour
 		transform.position.Set(0.0f, initialY, 0.0f);
 
 		source = GetComponent<AudioSource>();
+
+		enabled = false;
 	}
 	
 	// Update is called once per frame
