@@ -6,11 +6,14 @@ public class craneScript : MonoBehaviour {
 
 	public float speed = 0.1f;
 	public float limit = 4.0f;
+	public AudioClip platformDrop;
+
+	private AudioSource source;
 
 	// Use this for initialization
 	void Start ()
 	{
-		enabled = false;
+		source = GetComponent<AudioSource>();
 	}
 
     // Update is called once per frame

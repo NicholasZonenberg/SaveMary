@@ -6,12 +6,15 @@ public class platformBehavior : MonoBehaviour
 {
 	public float fallSpeed = 0.1f;
 	public float craneY = 3.66f;
+	public bool played = false;
+	public AudioClip platformDrop;
 
 	private float height;
 	private bool isOnCrane;
 	private bool isSettled;
 	private Transform cranePos;
 	private List<GameObject> platformList;
+	private AudioSource source;
 
     // Use this for initialization
     void Start ()
@@ -24,6 +27,8 @@ public class platformBehavior : MonoBehaviour
 		cranePos = GameObject.Find("crane").GetComponent<Transform>();
 
 		platformList = GameObject.Find("Mary").GetComponent<maryRunning>().platformList;
+
+		source = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -47,7 +52,11 @@ public class platformBehavior : MonoBehaviour
 		}
         if(isSettled)
         {
-            
+			if(!played)
+			{
+				source.PlayOneShot(platformDrop);
+				played = true;
+			}
         }
 	}
 

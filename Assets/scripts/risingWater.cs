@@ -9,12 +9,15 @@ public class risingWater : MonoBehaviour
 	public float speed = 0.1f;
 	public float stopHeight = -1.75f;
 
+	private AudioSource source;
+	public AudioClip platformDrop;
+
 	// Use this for initialization
 	void Start ()
 	{
 		transform.position.Set(0.0f, initialY, 0.0f);
 
-		enabled = false;
+		source = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
