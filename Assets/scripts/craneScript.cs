@@ -10,7 +10,7 @@ public class craneScript : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
 	{
-		
+		enabled = false;
 	}
 
     // Update is called once per frame

@@ -13,6 +13,8 @@ public class risingWater : MonoBehaviour
 	void Start ()
 	{
 		transform.position.Set(0.0f, initialY, 0.0f);
+
+		enabled = false;
 	}
 	
 	// Update is called once per frame
