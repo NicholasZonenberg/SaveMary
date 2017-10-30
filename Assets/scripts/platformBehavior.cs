@@ -7,34 +7,26 @@ public class platformBehavior : MonoBehaviour
 	public float fallSpeed = 0.1f;
 	public float craneY = 3.66f;
 
-    public bool played = false;
-
 	private float height;
 	private bool isOnCrane;
 	private bool isSettled;
 	private Transform cranePos;
-
-    private AudioSource source;
-    public AudioClip platformDrop;
 
     // Use this for initialization
     void Start ()
 	{
 		isOnCrane = true;
 		isSettled = false;
-        height = GetComponent<Transform>().lossyScale.y;
+
+		height = GetComponent<Transform>().lossyScale.y;
 
 		cranePos = GameObject.Find("crane").GetComponent<Transform>();
-
-        source = GetComponent<AudioSource>();
-
-    }
-
-    // Update is called once per frame
-    void Update ()
+	}
+	
+	// Update is called once per frame
+	void Update ()
 	{
-
-        if (isOnCrane)
+		if(isOnCrane)
 		{
 			Vector3 newPosition = new Vector3(cranePos.position.x, craneY - (height / 2.0f), 2.0f);
 			transform.position = newPosition;
@@ -51,19 +43,15 @@ public class platformBehavior : MonoBehaviour
 		}
         if(isSettled)
         {
-            if (played == false)
-            {
-                source.PlayOneShot(platformDrop);
-                played = true;
-            }
+            
         }
-    }
+	}
 
 	void OnCollisionEnter2D(Collision2D col)
 	{
 		if(!isSettled && !isOnCrane && col.gameObject.tag=="resting")
 		{
-            Instantiate(gameObject, new Vector3(0.0f, craneY - (height / 2.0f), 0.0f), Quaternion.identity);
+			Instantiate(gameObject, new Vector3(0.0f, craneY - (height / 2.0f), 0.0f), Quaternion.identity);
 			isSettled = true;
             gameObject.tag = "resting";
         }

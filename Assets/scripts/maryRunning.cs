@@ -20,6 +20,8 @@ public class maryRunning : MonoBehaviour
 	{
 		blockHeight = GameObject.Find("platform").transform.localScale.y;
 		maryCollider = GetComponent<BoxCollider2D>();
+
+		enabled = false;
 	}
 	
 	// Update is called once per frame
