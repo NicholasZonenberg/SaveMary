@@ -6,7 +6,7 @@ public class craneScript : MonoBehaviour {
 
 	public float speed = 0.1f;
 	public float limit = 4.0f;
-	public AudioClip platformDrop;
+	public AudioClip craneSound;
 
 	private AudioSource source;
 
@@ -14,7 +14,7 @@ public class craneScript : MonoBehaviour {
 	void Start ()
 	{
 		source = GetComponent<AudioSource>();
-
+        source.enabled = false;
 		enabled = false;
 	}
 
@@ -27,7 +27,10 @@ public class craneScript : MonoBehaviour {
 			if(transform.position.x < -limit)
 			{
 				transform.Translate(speed, 0.0f, 0.0f);
-			}
+                
+            }
+            source.enabled = true;
+            source.loop = true;
         }
         if (Input.GetKey(KeyCode.RightArrow))
         {
@@ -35,7 +38,15 @@ public class craneScript : MonoBehaviour {
 			if(transform.position.x > limit)
 			{
 				transform.Translate(-speed, 0.0f, 0.0f);
-			}
+                
+            }
+            source.enabled = true;
+            source.loop = true;
+        }
+        if(Input.GetKey(KeyCode.RightArrow) == false && Input.GetKey(KeyCode.LeftArrow) == false)
+        {
+            source.enabled = false;
+            source.loop = false;
         }
     }
 }
