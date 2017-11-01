@@ -18,9 +18,11 @@ public class maryRunning : MonoBehaviour
 	private Collider2D maryCollider;
 	private Rigidbody2D maryRigidbody;
 	private bool isJumping;
+    public bool startJump;
+    public int jumpWait = -1;
 
-	// Use this for initialization
-	void Start () 
+    // Use this for initialization
+    void Start () 
 	{
 		blockHeight = GameObject.Find("platform").transform.localScale.y;
 		maryCollider = GetComponent<BoxCollider2D>();
@@ -56,12 +58,25 @@ public class maryRunning : MonoBehaviour
         }
 
 		// Manual Jump
-		if(Input.GetKeyDown(KeyCode.UpArrow) && !isJumping && isAlive)
+		/*if(Input.GetKeyDown(KeyCode.UpArrow) && !isJumping && isAlive)
 		{
 			isJumping = true;
 			maryRigidbody.constraints = RigidbodyConstraints2D.FreezeAll ^ RigidbodyConstraints2D.FreezePositionY;	// Unfreeze Y
 			maryRigidbody.AddForce(new Vector2(0.0f, 200.0f));
-		}
+		}*/
+
+        if (startJump && jumpWait < 0)
+        {
+            startJump = false;
+            jumpWait = 100;
+            isJumping = true;
+            maryRigidbody.constraints = RigidbodyConstraints2D.FreezeAll ^ RigidbodyConstraints2D.FreezePositionY;  // Unfreeze Y
+            maryRigidbody.AddForce(new Vector2(0.0f, 200.0f));
+        }
+
+
+        startJump = false;
+        
 
         if (transform.position.x >= center + width / 2 && !isJumping)
         {
@@ -114,4 +129,12 @@ public class maryRunning : MonoBehaviour
 			}
 		}
 	}
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "resting")
+        {
+            startJump = true;
+        }
+    }
 }
