@@ -9,6 +9,7 @@ public class craneScript : MonoBehaviour {
 	public AudioClip craneSound;
 
 	private AudioSource source;
+	private bool win = false;
 
 	// Use this for initialization
 	void Start ()
@@ -24,7 +25,7 @@ public class craneScript : MonoBehaviour {
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             this.transform.Translate(-speed, 0.0f, 0.0f);
-			if(transform.position.x < -limit)
+			if(transform.position.x < -limit && !win)
 			{
 				transform.Translate(speed, 0.0f, 0.0f);
                 
@@ -35,7 +36,7 @@ public class craneScript : MonoBehaviour {
         if (Input.GetKey(KeyCode.RightArrow))
         {
             this.transform.Translate(speed, 0.0f, 0.0f);
-			if(transform.position.x > limit)
+			if(transform.position.x > limit && !win)
 			{
 				transform.Translate(-speed, 0.0f, 0.0f);
                 
@@ -49,4 +50,12 @@ public class craneScript : MonoBehaviour {
             source.loop = false;
         }
     }
+
+	void OnCollisionEnter2D(Collision2D col)
+	{
+		if(col.gameObject.name == "Mary")
+		{
+			win = true;
+		}
+	}
 }
