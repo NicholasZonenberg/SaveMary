@@ -35,7 +35,7 @@ public class maryRunning : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		/*if(!isJumping && isAlive)
+        /*if(!isJumping && isAlive)
 		{
 			// Check to see if any of the platforms on the list are in jumping distance
 			for(int i = platformList.Count - 1; i >= 0; i--)
@@ -50,8 +50,11 @@ public class maryRunning : MonoBehaviour
 			}
 		}*/
 
-		// move to the right
-		transform.Translate (speed, 0, 0);
+        //trigger running animation
+        GetComponent<Animator>().SetTrigger("startRun");
+
+        // move to the right
+        transform.Translate (speed, 0, 0);
         if (!isAlive)
         {
             speed = 0;
@@ -112,10 +115,15 @@ public class maryRunning : MonoBehaviour
         else if (coll.gameObject.tag == "falling")
         {
             isAlive = false;
+
+            //trigger death animation
+            GetComponent<Animator>().SetTrigger("didDie");
         }
 
 		isJumping = false;
 		maryRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
+            
+        
 
         /*else if (coll.gameObject.tag == "wall")
 		{
@@ -130,7 +138,10 @@ public class maryRunning : MonoBehaviour
 			if(other.bounds.center.y + other.bounds.extents.y > maryCollider.bounds.center.y + maryCollider.bounds.extents.y)
 			{
 				isAlive = false;
-			}
+                
+                //trigger death animation
+                GetComponent<Animator>().SetTrigger("didDie");
+            }
 		}
 	}
 
@@ -139,6 +150,9 @@ public class maryRunning : MonoBehaviour
 		if (other.gameObject.tag == "resting" && transform.position.y < other.gameObject.transform.position.y + 1.25)
         {
             startJump = true;
+
+            //trigger jump animation
+            GetComponent<Animator>().SetTrigger("startJumping");
         }
     }
 }
