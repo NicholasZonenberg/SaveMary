@@ -74,6 +74,10 @@ public class maryRunning : MonoBehaviour
             maryRigidbody.AddForce(new Vector2(0.0f, 200.0f));
         }
 
+		if (!isJumping)
+		{
+			jumpWait=-1;
+		}
 
         startJump = false;
         
@@ -95,7 +99,7 @@ public class maryRunning : MonoBehaviour
         {
 			height = coll.gameObject.transform.localScale.y;
 			//transform.position.Set(0.0f, height, 0.0f);
-			transform.Translate(0, blockHeight, 0);
+			//transform.Translate(0, blockHeight, 0);
             center = coll.gameObject.transform.position.x;
             width = coll.gameObject.transform.localScale.x;
         }
@@ -132,7 +136,7 @@ public class maryRunning : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "resting")
+		if (other.gameObject.tag == "resting" && transform.position.y < other.gameObject.transform.position.y + 3.5)
         {
             startJump = true;
         }
