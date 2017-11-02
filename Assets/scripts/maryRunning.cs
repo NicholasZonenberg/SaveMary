@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class maryRunning : MonoBehaviour 
 {
@@ -13,6 +14,13 @@ public class maryRunning : MonoBehaviour
 	public float jumpDistance = 0.5f;
     public bool isAlive = true;
 	public List<GameObject> platformList = new List<GameObject>();
+
+	//UI elements for winning and losing
+	public Image youWin;
+	public Image youLose;
+	public Button playAgain;
+	public Button mainMenu;
+	public Button exitBtn;
 
     private float blockHeight;
 	private Collider2D maryCollider;
@@ -58,6 +66,12 @@ public class maryRunning : MonoBehaviour
         if (!isAlive)
         {
             speed = 0;
+
+			//Set all of the UI elements for the lose screen
+			youLose.enabled = true;
+			playAgain.image.enabled = true;
+			mainMenu.image.enabled = true;
+			exitBtn.image.enabled = true;
         }
 
 		// Manual Jump
