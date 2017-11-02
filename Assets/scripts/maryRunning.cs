@@ -136,7 +136,7 @@ public class maryRunning : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-		if (other.gameObject.tag == "resting" && transform.position.y < other.gameObject.transform.position.y + 3.5)
+		if (other.gameObject.tag == "resting" && transform.position.y < other.gameObject.transform.position.y + 1.25)
         {
             startJump = true;
         }
