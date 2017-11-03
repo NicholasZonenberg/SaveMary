@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class maryRunning : MonoBehaviour 
 {
-
+    
     public bool onFloor = true;
     public float width = 8.0f;
     public float center = 0.0f;
@@ -30,6 +30,8 @@ public class maryRunning : MonoBehaviour
     public int jumpWait = -1;
 	private bool win = false;
 
+    public static maryRunning instance = null;
+    
     // Use this for initialization
     void Start () 
 	{
@@ -55,8 +57,15 @@ public class maryRunning : MonoBehaviour
 				// Win condition goes here
 				enabled = false;
 				GameObject.Find("crane").GetComponent<craneScript>().enabled = false;
+                GetComponent<Animator>().SetTrigger("saved");
 			}
-		}
+
+            //Set all of the UI elements for the win screen
+            youWin.enabled = true;
+            playAgain.image.enabled = true;
+            mainMenu.image.enabled = true;
+            exitBtn.image.enabled = true;
+        }
 
 		else
 		{
@@ -194,5 +203,15 @@ public class maryRunning : MonoBehaviour
             //trigger jump animation
             GetComponent<Animator>().SetTrigger("startJumping");
         }
+    }
+    public void Restart() {
+        //revive mary
+        isAlive = true;
+        GetComponent<Animator>().SetTrigger("revive");
+        transform.Translate(new Vector3(0.0f, -4.0f, 0.0f));
+        
+        //enabled = false;
+        Debug.Log("called");
+        Start();
     }
 }
