@@ -18,7 +18,7 @@ public class maryRunning : MonoBehaviour
 	//UI elements for winning and losing
 	public Image youWin;
 	public Image youLose;
-	public Button playAgain;
+	//public Button playAgain;
 	public Button mainMenu;
 	public Button exitBtn;
 
@@ -62,7 +62,7 @@ public class maryRunning : MonoBehaviour
 
             //Set all of the UI elements for the win screen
             youWin.enabled = true;
-            playAgain.image.enabled = true;
+            //playAgain.image.enabled = true;
             mainMenu.image.enabled = true;
             exitBtn.image.enabled = true;
         }
@@ -95,7 +95,7 @@ public class maryRunning : MonoBehaviour
 
 				//Set all of the UI elements for the lose screen
 				youLose.enabled = true;
-				playAgain.image.enabled = true;
+				//playAgain.image.enabled = true;
 				mainMenu.image.enabled = true;
 				exitBtn.image.enabled = true;
 	        }
