@@ -28,6 +28,7 @@ public class maryRunning : MonoBehaviour
 	private bool isJumping;
     public bool startJump;
     public int jumpWait = -1;
+	private bool win = false;
 
     // Use this for initialization
     void Start () 
@@ -43,71 +44,88 @@ public class maryRunning : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-        /*if(!isJumping && isAlive)
+
+		if(win)
 		{
-			// Check to see if any of the platforms on the list are in jumping distance
-			for(int i = platformList.Count - 1; i >= 0; i--)
+			transform.position = GameObject.Find("crane").transform.position;
+			transform.Translate(0.0f, 1.66f, 0.0f);
+
+			if(Camera.main.WorldToViewportPoint(maryCollider.bounds.max).x < -0.05f || Camera.main.WorldToViewportPoint(maryCollider.bounds.min).x > 1.05f)
 			{
-				// Mary is within jumping distance of this block, and it's on her level! Jump!
-				if(Mathf.Abs(platformList[i].GetComponent<Collider2D>().bounds.center.x - maryCollider.bounds.center.x) <= jumpDistance)
-				{
-					isJumping = true;
-					maryRigidbody.constraints = RigidbodyConstraints2D.FreezeAll ^ RigidbodyConstraints2D.FreezePositionY;	// Unfreeze Y
-					maryRigidbody.AddForce(new Vector2(0.0f, 200.0f));
-				}
+				// Win condition goes here
+				enabled = false;
+				GameObject.Find("crane").GetComponent<craneScript>().enabled = false;
 			}
-		}*/
-
-        //trigger running animation
-        GetComponent<Animator>().SetTrigger("startRun");
-
-        // move to the right
-        transform.Translate (speed, 0, 0);
-        if (!isAlive)
-        {
-            speed = 0;
-
-			//Set all of the UI elements for the lose screen
-			youLose.enabled = true;
-			playAgain.image.enabled = true;
-			mainMenu.image.enabled = true;
-			exitBtn.image.enabled = true;
-        }
-
-		// Manual Jump
-		/*if(Input.GetKeyDown(KeyCode.UpArrow) && !isJumping && isAlive)
-		{
-			isJumping = true;
-			maryRigidbody.constraints = RigidbodyConstraints2D.FreezeAll ^ RigidbodyConstraints2D.FreezePositionY;	// Unfreeze Y
-			maryRigidbody.AddForce(new Vector2(0.0f, 200.0f));
-		}*/
-
-        if (startJump && jumpWait < 0)
-        {
-            startJump = false;
-            jumpWait = 100;
-            isJumping = true;
-            maryRigidbody.constraints = RigidbodyConstraints2D.FreezeAll ^ RigidbodyConstraints2D.FreezePositionY;  // Unfreeze Y
-            maryRigidbody.AddForce(new Vector2(0.0f, 200.0f));
-        }
-
-		if (!isJumping)
-		{
-			jumpWait=-1;
 		}
 
-        startJump = false;
-        
+		else
+		{
+	        /*if(!isJumping && isAlive)
+			{
+				// Check to see if any of the platforms on the list are in jumping distance
+				for(int i = platformList.Count - 1; i >= 0; i--)
+				{
+					// Mary is within jumping distance of this block, and it's on her level! Jump!
+					if(Mathf.Abs(platformList[i].GetComponent<Collider2D>().bounds.center.x - maryCollider.bounds.center.x) <= jumpDistance)
+					{
+						isJumping = true;
+						maryRigidbody.constraints = RigidbodyConstraints2D.FreezeAll ^ RigidbodyConstraints2D.FreezePositionY;	// Unfreeze Y
+						maryRigidbody.AddForce(new Vector2(0.0f, 200.0f));
+					}
+				}
+			}*/
 
-        if (transform.position.x >= center + width / 2 && !isJumping)
-        {
-            transform.rotation = Quaternion.Euler(0, 180, 0);
-        }
-        
-        if (transform.position.x <= center - width / 2 && !isJumping)
-        {
-            transform.rotation = Quaternion.Euler(0, 0, 0);
-        }
+	        //trigger running animation
+	        GetComponent<Animator>().SetTrigger("startRun");
+
+	        // move to the right
+	        transform.Translate (speed, 0, 0);
+	        if (!isAlive)
+	        {
+	            speed = 0;
+
+				//Set all of the UI elements for the lose screen
+				youLose.enabled = true;
+				playAgain.image.enabled = true;
+				mainMenu.image.enabled = true;
+				exitBtn.image.enabled = true;
+	        }
+
+			// Manual Jump
+			/*if(Input.GetKeyDown(KeyCode.UpArrow) && !isJumping && isAlive)
+			{
+				isJumping = true;
+				maryRigidbody.constraints = RigidbodyConstraints2D.FreezeAll ^ RigidbodyConstraints2D.FreezePositionY;	// Unfreeze Y
+				maryRigidbody.AddForce(new Vector2(0.0f, 200.0f));
+			}*/
+
+	        if (startJump && jumpWait < 0)
+	        {
+	            startJump = false;
+	            jumpWait = 100;
+	            isJumping = true;
+	            maryRigidbody.constraints = RigidbodyConstraints2D.FreezeAll ^ RigidbodyConstraints2D.FreezePositionY;  // Unfreeze Y
+	            maryRigidbody.AddForce(new Vector2(0.0f, 200.0f));
+	        }
+
+			if (!isJumping)
+			{
+				jumpWait=-1;
+			}
+
+	        startJump = false;
+	        
+
+	        if (transform.position.x >= center + width / 2 && !isJumping)
+	        {
+	            transform.rotation = Quaternion.Euler(0, 180, 0);
+	        }
+	        
+	        if (transform.position.x <= center - width / 2 && !isJumping)
+	        {
+	            transform.rotation = Quaternion.Euler(0, 0, 0);
+	        }
+		}
 	}
 
     void OnCollisionEnter2D(Collision2D coll)
@@ -132,7 +150,14 @@ public class maryRunning : MonoBehaviour
 
             //trigger death animation
             GetComponent<Animator>().SetTrigger("didDie");
+			GetComponent<SpriteRenderer>().size = new Vector2(2.1f, 1.375f);
         }
+		else if (coll.gameObject.name == "crane")
+		{
+			// Trigger win animation
+			GetComponent<Animator>().SetTrigger("saved");
+			win = true;
+		}
 
 		isJumping = false;
 		maryRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
@@ -155,6 +180,7 @@ public class maryRunning : MonoBehaviour
                 
                 //trigger death animation
                 GetComponent<Animator>().SetTrigger("didDie");
+				GetComponent<SpriteRenderer>().size = new Vector2(2.1f, 1.375f);
             }
 		}
 	}
