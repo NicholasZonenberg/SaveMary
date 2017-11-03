@@ -24,10 +24,10 @@ public class craneScript : MonoBehaviour {
     {
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            this.transform.Translate(-speed, 0.0f, 0.0f);
+			this.transform.Translate(new Vector3(-speed, 0.0f, 0.0f) * Time.deltaTime);
 			if(transform.position.x < -limit && !win)
 			{
-				transform.Translate(speed, 0.0f, 0.0f);
+				transform.Translate(new Vector3(speed, 0.0f, 0.0f) * Time.deltaTime);
                 
             }
 			if(!win)
@@ -38,10 +38,10 @@ public class craneScript : MonoBehaviour {
         }
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            this.transform.Translate(speed, 0.0f, 0.0f);
+			this.transform.Translate(new Vector3(speed, 0.0f, 0.0f) * Time.deltaTime);
 			if(transform.position.x > limit && !win)
 			{
-				transform.Translate(-speed, 0.0f, 0.0f);
+				transform.Translate(new Vector3(-speed, 0.0f, 0.0f) * Time.deltaTime);
                 
             }
 			if(!win)

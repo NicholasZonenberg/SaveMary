@@ -48,7 +48,7 @@ public class platformBehavior : MonoBehaviour
 
 		if(!isOnCrane && !isSettled)
 		{
-			transform.Translate(0.0f, -fallSpeed, 0.0f);
+			transform.Translate(new Vector3(0.0f, -fallSpeed, 0.0f) * Time.deltaTime);
 		}
         if(isSettled)
         {

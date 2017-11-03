@@ -88,7 +88,7 @@ public class maryRunning : MonoBehaviour
 	        GetComponent<Animator>().SetTrigger("startRun");
 
 	        // move to the right
-	        transform.Translate (speed, 0, 0);
+			transform.Translate (new Vector3(speed, 0, 0) * Time.deltaTime);
 	        if (!isAlive)
 	        {
 	            speed = 0;
